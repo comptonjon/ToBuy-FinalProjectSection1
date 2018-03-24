@@ -8,9 +8,11 @@
 
 import UIKit
 
-class AddEditVC: UIViewController {
+class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     var editMode = false
+    var database = ItemDB.singletonDB
+    var imagePicker = UIImagePickerController()
     
 
     @IBOutlet weak var itemTitleTextField: UITextField!
@@ -22,15 +24,34 @@ class AddEditVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker.delegate = self
 
         
     }
-
-  
-    @IBAction func changePreviewBtnTapped(_ sender: UIButton) {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            previewImageView.image = image
+            imagePicker.dismiss(animated: true, completion: nil)
+        }
+    }
+  
+    @IBAction func changePreviewBtnTapped(_ sender: UIButton) {
+        imagePicker.sourceType = .camera
+        imagePicker.allowsEditing = false
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    
     @IBAction func addEditBtnTapped(_ sender: Any) {
+        let newItem = Item(title: itemTitleTextField.text!, price: itemPriceTextField.text!, image: previewImageView.image!, details: itemDetailsTextField.text!)
+        database.items.append(newItem)
+        navigationController!.popViewController(animated: true)
     }
     
 
