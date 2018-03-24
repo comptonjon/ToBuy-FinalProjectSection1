@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var index : Int = 0
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var sortToggler: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,5 +87,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         database.items.insert(itemToMove, at: destinationIndexPath.row)
     }
 
+    @IBAction func sortTogglerTapped(_ sender: UISegmentedControl) {
+        if sortToggler.selectedSegmentIndex == 1 {
+            database.sortByPrice()
+            tableView.reloadData()
+        }
+    }
 }
 

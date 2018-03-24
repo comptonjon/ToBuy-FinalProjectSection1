@@ -34,4 +34,9 @@ class ItemDB {
         items.append(item6)
     }
     
+    func sortByPrice(){
+        let sortedItems = items.sorted(by: { $0.price < $1.price})
+        self.items = sortedItems
+    }
+    
 }
