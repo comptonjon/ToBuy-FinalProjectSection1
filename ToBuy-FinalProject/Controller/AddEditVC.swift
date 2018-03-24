@@ -12,6 +12,7 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
     
     var editMode = false
     var database = ItemDB.singletonDB
+    var index : Int = 0
     var imagePicker = UIImagePickerController()
     
 
@@ -24,6 +25,15 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if editMode {
+            itemTitleTextField.placeholder = database.items[index].title
+            itemPriceTextField.placeholder = database.items[index].price
+            itemDetailsTextField.placeholder = database.items[index].details
+            previewImageView.image = database.items[index].image
+            changePreviewBtn.setTitle("Change Image", for: .normal)
+            addEditBtn.setTitle("Edit Item", for: .normal)
+            navigationItem.title = "Edit Item"
+        }
         imagePicker.delegate = self
 
         
@@ -49,8 +59,22 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
     
     
     @IBAction func addEditBtnTapped(_ sender: Any) {
-        let newItem = Item(title: itemTitleTextField.text!, price: itemPriceTextField.text!, image: previewImageView.image!, details: itemDetailsTextField.text!)
-        database.items.append(newItem)
+        if editMode {
+            if itemTitleTextField.text! != "" {
+                database.items[index].title = itemTitleTextField.text!
+            }
+            if itemPriceTextField.text! != "" {
+                database.items[index].price = itemPriceTextField.text!
+            }
+            if itemDetailsTextField.text! != "" {
+                database.items[index].details = itemDetailsTextField.text!
+            }
+            database.items[index].image = previewImageView.image!
+        } else {
+            let newItem = Item(title: itemTitleTextField.text!, price: itemPriceTextField.text!, image: previewImageView.image!, details: itemDetailsTextField.text!)
+            database.items.append(newItem)
+        }
+        
         navigationController!.popViewController(animated: true)
     }
     
