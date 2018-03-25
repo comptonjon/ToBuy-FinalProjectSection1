@@ -27,7 +27,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewWillAppear(_ animated: Bool) {
         if sortToggler.selectedSegmentIndex == 0 {
-            database.sortByName()
+            database.sortByPrice()
         } else {
             database.sortByDate()
         }
@@ -57,7 +57,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let item = database.items[indexPath.row]
         cell.itemImageView.image = item.image
         cell.itemTitleLabel.text = item.title
-        cell.itemPriceLabel.text = item.price
+        cell.itemPriceLabel.text = item.stringPrice()
         cell.itemDetailLabel.text = item.details
         return cell
     }
@@ -94,7 +94,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBAction func sortTogglerTapped(_ sender: UISegmentedControl) {
         if sortToggler.selectedSegmentIndex == 0 {
-            database.sortByName()
+            database.sortByPrice()
             tableView.reloadData()
         }
         if sortToggler.selectedSegmentIndex == 1 {

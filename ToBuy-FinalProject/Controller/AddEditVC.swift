@@ -27,7 +27,7 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
         super.viewDidLoad()
         if editMode {
             itemTitleTextField.placeholder = database.items[index].title
-            itemPriceTextField.placeholder = database.items[index].price
+            itemPriceTextField.placeholder = database.items[index].stringPrice()
             itemDetailsTextField.placeholder = database.items[index].details
             previewImageView.image = database.items[index].image
             changePreviewBtn.setTitle("Change Image", for: .normal)
@@ -78,7 +78,7 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
                 database.items[index].title = itemTitleTextField.text!
             }
             if itemPriceTextField.text! != "" {
-                database.items[index].price = itemPriceTextField.text!
+                database.items[index].price = Double(itemPriceTextField.text!)!
             }
             if itemDetailsTextField.text! != "" {
                 database.items[index].details = itemDetailsTextField.text!
