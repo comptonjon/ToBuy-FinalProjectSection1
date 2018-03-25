@@ -75,11 +75,20 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jek-2R-HtA">
+                                                            <rect key="frame" x="8" y="14" width="100" height="100"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="100" id="SHN-Bd-Cro"/>
+                                                                <constraint firstAttribute="width" constant="100" id="bw6-Q2-hs5"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="P2a-Jb-xat" firstAttribute="top" secondItem="Q1Z-RW-tZd" secondAttribute="top" constant="8" id="3SS-jy-kVG"/>
+                                                        <constraint firstItem="Jek-2R-HtA" firstAttribute="top" secondItem="Q1Z-RW-tZd" secondAttribute="top" constant="14" id="EEa-zW-QVQ"/>
                                                         <constraint firstItem="twv-xm-3Iv" firstAttribute="top" secondItem="P2a-Jb-xat" secondAttribute="bottom" constant="8" id="EOY-3O-T7n"/>
+                                                        <constraint firstItem="Jek-2R-HtA" firstAttribute="leading" secondItem="Q1Z-RW-tZd" secondAttribute="leading" constant="8" id="KrL-2D-pPg"/>
                                                         <constraint firstItem="uOP-i2-ERR" firstAttribute="leading" secondItem="Q1Z-RW-tZd" secondAttribute="leading" constant="8" id="Npg-s4-cP2"/>
                                                         <constraint firstItem="fag-Kr-MPs" firstAttribute="top" secondItem="twv-xm-3Iv" secondAttribute="bottom" constant="8" id="RU6-L9-ALX"/>
                                                         <constraint firstItem="uOP-i2-ERR" firstAttribute="centerY" secondItem="Q1Z-RW-tZd" secondAttribute="centerY" id="T00-UB-eqg"/>
@@ -101,6 +110,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
+                                            <outlet property="completeImageView" destination="Jek-2R-HtA" id="p5R-Hc-yL9"/>
                                             <outlet property="contentContainerView" destination="yem-dP-XVV" id="BLm-Ma-MSa"/>
                                             <outlet property="itemDetailLabel" destination="fag-Kr-MPs" id="tpP-3R-jva"/>
                                             <outlet property="itemImageView" destination="uOP-i2-ERR" id="dOF-fi-WXZ"/>

@@ -21,6 +21,9 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         navigationItem.leftBarButtonItem  = editButtonItem
         
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTap(recognizer:)))
+        self.view.addGestureRecognizer(longGesture)
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -59,6 +62,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.itemTitleLabel.text = item.title
         cell.itemPriceLabel.text = item.stringPrice()
         cell.itemDetailLabel.text = item.details
+        cell.completeImageView.image = item.doneImage
+        
         return cell
     }
     
@@ -102,5 +107,23 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             tableView.reloadData()
         }
     }
+    
+    @objc func longTap(recognizer: UILongPressGestureRecognizer){
+        let longPress =  recognizer as UILongPressGestureRecognizer
+        if longPress.state == .began {
+        let locationInView = longPress.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: locationInView)!
+        let item = database.items[indexPath.row]
+        item.toggleCompete()
+        tableView.reloadRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    func refreshCell(indexPath: IndexPath){
+        tableView.reloadData()
+        print(database.items[indexPath.row].done)
+    }
 }
+
+
 

@@ -13,6 +13,7 @@ class ItemCell: UITableViewCell {
 
     @IBOutlet weak var contentContainerView: UIView!
     @IBOutlet weak var itemImageView: UIImageView!
+    @IBOutlet weak var completeImageView: UIImageView!
     @IBOutlet weak var itemTitleLabel: UILabel!
     @IBOutlet weak var itemPriceLabel: UILabel!
     @IBOutlet weak var itemDetailLabel: UILabel!

@@ -15,6 +15,17 @@ class Item {
     var image: UIImage
     var details: String
     let dateCreated : NSDate
+    var doneImage : UIImage? = nil
+    var done = false {
+        didSet{
+            if doneImage == nil {
+                doneImage = UIImage(named: "complete.png")
+            } else {
+                doneImage = nil
+            }
+        }
+    }
+    
     
     init(title: String, price: String, image: UIImage, details: String) {
         self.title = title
@@ -30,5 +41,9 @@ class Item {
             stringPrice += "0"
         }
         return stringPrice
+    }
+    
+    func toggleCompete(){
+        done = !done
     }
 }

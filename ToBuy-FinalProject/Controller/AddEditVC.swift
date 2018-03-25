@@ -33,6 +33,7 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
             changePreviewBtn.setTitle("Change Image", for: .normal)
             addEditBtn.setTitle("Edit Item", for: .normal)
             navigationItem.title = "Edit Item"
+            //database.items[index].done = true
         }
         imagePicker.delegate = self
         
@@ -99,7 +100,13 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
             }
             database.items[index].image = previewImageView.image!
         } else {
-            let newItem = Item(title: itemTitleTextField.text!, price: itemPriceTextField.text!, image: previewImageView.image!, details: itemDetailsTextField.text!)
+            var price : String
+            if itemPriceTextField.text! == "" {
+                price = "0"
+            } else {
+                price = itemPriceTextField.text!
+            }
+            let newItem = Item(title: itemTitleTextField.text!, price: price, image: previewImageView.image!, details: itemDetailsTextField.text!)
             database.items.append(newItem)
         }
         
