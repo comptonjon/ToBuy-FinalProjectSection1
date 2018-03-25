@@ -34,8 +34,13 @@ class ItemDB {
         items.append(item6)
     }
     
-    func sortByPrice(){
-        let sortedItems = items.sorted(by: { $0.price < $1.price})
+    func sortByDate(){
+        let sortedItems = items.sorted(by: { $0.dateCreated.timeIntervalSince1970 > $1.dateCreated.timeIntervalSince1970})
+        self.items = sortedItems
+    }
+    
+    func sortByName(){
+        let sortedItems = items.sorted(by: {$0.title.lowercased() < $1.title.lowercased()})
         self.items = sortedItems
     }
     

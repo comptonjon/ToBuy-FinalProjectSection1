@@ -14,11 +14,13 @@ class Item {
     var price: String
     var image: UIImage
     var details: String
+    let dateCreated : NSDate
     
     init(title: String, price: String, image: UIImage, details: String) {
         self.title = title
         self.price = price
         self.image = image
         self.details = details
+        self.dateCreated = NSDate()
     }
 }

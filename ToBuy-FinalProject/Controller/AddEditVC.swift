@@ -52,9 +52,23 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
     }
   
     @IBAction func changePreviewBtnTapped(_ sender: UIButton) {
-        imagePicker.sourceType = .camera
-        imagePicker.allowsEditing = false
-        present(imagePicker, animated: true, completion: nil)
+        let alert = UIAlertController(title: "Choose Photo Origin", message: "", preferredStyle: .alert)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+            self.imagePicker.sourceType = .camera
+            self.imagePicker.allowsEditing = false
+            self.present(self.imagePicker, animated: true, completion: nil)
+        })
+        let photoRollAction = UIAlertAction(title: "Photo Library", style: .default, handler: { (action) in
+            self.imagePicker.sourceType = .savedPhotosAlbum
+            self.imagePicker.allowsEditing = false
+            self.present(self.imagePicker, animated: true, completion: nil)
+            
+        })
+        alert.addAction(cameraAction)
+        alert.addAction(photoRollAction)
+        present(alert, animated: true, completion: nil)
+        
+        
     }
     
     

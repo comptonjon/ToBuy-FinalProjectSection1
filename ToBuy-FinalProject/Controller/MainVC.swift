@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var database = ItemDB.singletonDB
     var index : Int = 0
@@ -26,6 +26,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if sortToggler.selectedSegmentIndex == 0 {
+            database.sortByName()
+        } else {
+            database.sortByDate()
+        }
         tableView.reloadData()
     }
 
@@ -88,8 +93,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     @IBAction func sortTogglerTapped(_ sender: UISegmentedControl) {
+        if sortToggler.selectedSegmentIndex == 0 {
+            database.sortByName()
+            tableView.reloadData()
+        }
         if sortToggler.selectedSegmentIndex == 1 {
-            database.sortByPrice()
+            database.sortByDate()
             tableView.reloadData()
         }
     }
