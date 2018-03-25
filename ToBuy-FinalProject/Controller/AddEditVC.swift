@@ -35,8 +35,22 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
             navigationItem.title = "Edit Item"
         }
         imagePicker.delegate = self
-
         
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(self.doneClicked))
+        
+        toolBar.setItems([flexibleSpace, doneButton], animated: false)
+        
+        itemPriceTextField.inputAccessoryView = toolBar
+        
+    }
+    
+    @objc func doneClicked(){
+        self.view.endEditing(true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
