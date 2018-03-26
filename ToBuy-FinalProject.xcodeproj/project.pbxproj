@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B10629432065CD8C005488E0 /* AddEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10629422065CD8C005488E0 /* AddEditVC.swift */; };
+		B106294520687227005488E0 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B106294420687227005488E0 /* CurrencyFormatter.swift */; };
 		B190CC5A2065A54B004B3EDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B190CC592065A54B004B3EDC /* AppDelegate.swift */; };
 		B190CC5C2065A54B004B3EDC /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B190CC5B2065A54B004B3EDC /* MainVC.swift */; };
 		B190CC5F2065A54B004B3EDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B190CC5D2065A54B004B3EDC /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		B10629422065CD8C005488E0 /* AddEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditVC.swift; sourceTree = "<group>"; };
+		B106294420687227005488E0 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
 		B190CC562065A54A004B3EDC /* ToBuy-FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ToBuy-FinalProject.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B190CC592065A54B004B3EDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B190CC5B2065A54B004B3EDC /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			children = (
 				B190CC6F2065A68D004B3EDC /* ItemDB.swift */,
 				B190CC712065A697004B3EDC /* Item.swift */,
+				B106294420687227005488E0 /* CurrencyFormatter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B190CC6E2065A679004B3EDC /* ItemCell.swift in Sources */,
+				B106294520687227005488E0 /* CurrencyFormatter.swift in Sources */,
 				B190CC6C2065A673004B3EDC /* ShadowView.swift in Sources */,
 				B190CC5C2065A54B004B3EDC /* MainVC.swift in Sources */,
 				B190CC5A2065A54B004B3EDC /* AppDelegate.swift in Sources */,

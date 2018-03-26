@@ -25,6 +25,7 @@ class Item {
             }
         }
     }
+
     
     
     init(title: String, price: String, image: UIImage, details: String) {
@@ -33,6 +34,7 @@ class Item {
         self.image = image
         self.details = details
         self.dateCreated = NSDate()
+
     }
     
     func stringPrice() -> String {

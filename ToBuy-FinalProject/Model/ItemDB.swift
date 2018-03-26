@@ -44,4 +44,14 @@ class ItemDB {
         self.items = sortedItems
     }
     
+    func getTotal() -> NSNumber {
+        var price : Double = 0
+        for item in items {
+            if item.done == false {
+                price += item.price
+            }
+            
+        }
+        return NSNumber(value: price)
+    }
 }

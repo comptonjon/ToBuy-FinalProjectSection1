@@ -15,6 +15,8 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sortToggler: UISegmentedControl!
+    @IBOutlet weak var totalLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             database.sortByDate()
         }
         tableView.reloadData()
+        totalLabel.text = getTotalString()
     }
 
     override func didReceiveMemoryWarning() {
@@ -116,13 +119,16 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let item = database.items[indexPath.row]
         item.toggleCompete()
         tableView.reloadRows(at: [indexPath], with: .fade)
+        totalLabel.text = getTotalString()
         }
     }
     
-    func refreshCell(indexPath: IndexPath){
-        tableView.reloadData()
-        print(database.items[indexPath.row].done)
+    func getTotalString() -> String {
+        
+        return CurrencyFormatter.sharedInstance.string(from: database.getTotal())!
     }
+    
+    
 }
 
 
