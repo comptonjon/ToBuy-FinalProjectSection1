@@ -9,7 +9,12 @@
 import Foundation
 import UIKit
 
-class Item {
+class Item: Equatable {
+    
+    static func ==(lhs: Item, rhs: Item) -> Bool {
+        return lhs.title == rhs.title && lhs.price == rhs.price && lhs.details == rhs.details
+    }
+    
     var title: String
     var price: Double
     var image: UIImage

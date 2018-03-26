@@ -26,8 +26,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AVAu
         
         navigationItem.leftBarButtonItem  = editButtonItem
         
-        
-        
         tableView.delegate = self
         tableView.dataSource = self
     }
