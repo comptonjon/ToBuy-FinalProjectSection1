@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B10629432065CD8C005488E0 /* AddEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10629422065CD8C005488E0 /* AddEditVC.swift */; };
 		B106294520687227005488E0 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B106294420687227005488E0 /* CurrencyFormatter.swift */; };
+		B106294A2069A084005488E0 /* coin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B10629492069A084005488E0 /* coin.mp3 */; };
 		B190CC5A2065A54B004B3EDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B190CC592065A54B004B3EDC /* AppDelegate.swift */; };
 		B190CC5C2065A54B004B3EDC /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B190CC5B2065A54B004B3EDC /* MainVC.swift */; };
 		B190CC5F2065A54B004B3EDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B190CC5D2065A54B004B3EDC /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		B10629422065CD8C005488E0 /* AddEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditVC.swift; sourceTree = "<group>"; };
 		B106294420687227005488E0 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
+		B10629492069A084005488E0 /* coin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coin.mp3; sourceTree = "<group>"; };
 		B190CC562065A54A004B3EDC /* ToBuy-FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ToBuy-FinalProject.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B190CC592065A54B004B3EDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B190CC5B2065A54B004B3EDC /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -71,9 +73,16 @@
 			children = (
 				B190CC6F2065A68D004B3EDC /* ItemDB.swift */,
 				B190CC712065A697004B3EDC /* Item.swift */,
-				B106294420687227005488E0 /* CurrencyFormatter.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B106294620699F28005488E0 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B106294420687227005488E0 /* CurrencyFormatter.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		B190CC4D2065A54A004B3EDC = {
@@ -95,11 +104,13 @@
 		B190CC582065A54A004B3EDC /* ToBuy-FinalProject */ = {
 			isa = PBXGroup;
 			children = (
+				B106294620699F28005488E0 /* Services */,
 				B10629412065CD53005488E0 /* Model */,
 				B10629402065CD50005488E0 /* View */,
 				B106293F2065CD4D005488E0 /* Controller */,
 				B190CC592065A54B004B3EDC /* AppDelegate.swift */,
 				B190CC602065A54B004B3EDC /* Assets.xcassets */,
+				B10629492069A084005488E0 /* coin.mp3 */,
 				B190CC622065A54B004B3EDC /* LaunchScreen.storyboard */,
 				B190CC652065A54B004B3EDC /* Info.plist */,
 			);
@@ -168,6 +179,7 @@
 				B190CC642065A54B004B3EDC /* LaunchScreen.storyboard in Resources */,
 				B190CC612065A54B004B3EDC /* Assets.xcassets in Resources */,
 				B190CC5F2065A54B004B3EDC /* Main.storyboard in Resources */,
+				B106294A2069A084005488E0 /* coin.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

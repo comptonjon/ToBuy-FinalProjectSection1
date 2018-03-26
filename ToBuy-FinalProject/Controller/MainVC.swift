@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import AVFoundation
 
-class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate {
     
     var database = ItemDB.singletonDB
     var index : Int = 0
+    var audioPlayer : AVAudioPlayer!
+    let soundURL = Bundle.main.url(forResource: "coin", withExtension: "mp3")
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sortToggler: UISegmentedControl!
@@ -23,8 +26,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         navigationItem.leftBarButtonItem  = editButtonItem
         
-        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTap(recognizer:)))
-        self.view.addGestureRecognizer(longGesture)
+        
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -63,9 +65,14 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let item = database.items[indexPath.row]
         cell.itemImageView.image = item.image
         cell.itemTitleLabel.text = item.title
-        cell.itemPriceLabel.text = item.stringPrice()
+        cell.itemPriceLabel.text = CurrencyFormatter.sharedInstance.string(from: item.nsPrice())!
         cell.itemDetailLabel.text = item.details
         cell.completeImageView.image = item.doneImage
+        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight(recognizer:)))
+        swipeRightGesture.direction = .right
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipedLeft(recognizer:)))
+        swipeLeftGesture.direction = .left
+        cell.gestureRecognizers = [swipeLeftGesture, swipeRightGesture]
         
         return cell
     }
@@ -78,6 +85,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             database.items.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            totalLabel.text = getTotalString()
         }
     }
     
@@ -99,6 +107,10 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         database.items.remove(at: sourceIndexPath.row)
         database.items.insert(itemToMove, at: destinationIndexPath.row)
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
 
     @IBAction func sortTogglerTapped(_ sender: UISegmentedControl) {
         if sortToggler.selectedSegmentIndex == 0 {
@@ -111,16 +123,31 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    @objc func longTap(recognizer: UILongPressGestureRecognizer){
-        let longPress =  recognizer as UILongPressGestureRecognizer
-        if longPress.state == .began {
-        let locationInView = longPress.location(in: tableView)
+    @objc func swipedRight(recognizer: UISwipeGestureRecognizer){
+        let swipe = recognizer as UISwipeGestureRecognizer
+        let locationInView = swipe.location(in: tableView)
         let indexPath = tableView.indexPathForRow(at: locationInView)!
         let item = database.items[indexPath.row]
-        item.toggleCompete()
+        item.done = true
+        tableView.reloadRows(at: [indexPath], with: .fade)
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL!)
+        } catch {
+            print(error)
+        }
+        audioPlayer.play()
+        totalLabel.text = getTotalString()
+        
+    }
+    
+    @objc func swipedLeft(recognizer: UISwipeGestureRecognizer){
+        let swipe = recognizer as UISwipeGestureRecognizer
+        let locationInView = swipe.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: locationInView)!
+        let item = database.items[indexPath.row]
+        item.done = false
         tableView.reloadRows(at: [indexPath], with: .fade)
         totalLabel.text = getTotalString()
-        }
     }
     
     func getTotalString() -> String {

@@ -48,4 +48,8 @@ class Item {
     func toggleCompete(){
         done = !done
     }
+    
+    func nsPrice() -> NSNumber {
+        return NSNumber(value: price)
+    }
 }
