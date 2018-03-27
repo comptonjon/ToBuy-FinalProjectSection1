@@ -11,6 +11,7 @@ import UIKit
 
 class ItemDB {
     var items = [Item]()
+    var nonRankedItems = [Item]()
     
     static let singletonDB = ItemDB()
     
@@ -32,6 +33,7 @@ class ItemDB {
         items.append(item4)
         items.append(item5)
         items.append(item6)
+        nonRankedItems = items
     }
     
     func sortByDate(){
@@ -53,6 +55,38 @@ class ItemDB {
             
         }
         return NSNumber(value: price)
+    }
+    
+    func removeItem(index: Int, ranked: Bool) {
+        let itemToRemove : Item
+        if ranked {
+            itemToRemove = items[index]
+            items.remove(at: index)
+            let otherRemoveIndex = nonRankedItems.index(of: itemToRemove)
+            nonRankedItems.remove(at: otherRemoveIndex!)
+        } else {
+            itemToRemove = nonRankedItems[index]
+            nonRankedItems.remove(at: index)
+            let otherRemoveIndex = items.index(of: itemToRemove)
+            items.remove(at: otherRemoveIndex!)
+        }
+    }
+    
+    func updateItem(index: Int, ranked: Bool, newItem: Item) {
+        let oldItem: Item
+        let otherInsertIndex: Int
+        if ranked {
+            oldItem = items[index]
+            otherInsertIndex = nonRankedItems.index(of: oldItem)!
+            items[index] = newItem
+            nonRankedItems[otherInsertIndex] = newItem
+            
+        } else {
+            oldItem = nonRankedItems[index]
+            otherInsertIndex = items.index(of: oldItem)!
+            nonRankedItems[index] = newItem
+            items[otherInsertIndex] = newItem
+        }
     }
     
     
