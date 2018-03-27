@@ -50,9 +50,9 @@ class Item: Equatable {
         return stringPrice
     }
     
-    func toggleCompete(){
-        done = !done
-    }
+//    func toggleCompete(){
+//        done = !done
+//    }
     
     func nsPrice() -> NSNumber {
         return NSNumber(value: price)

@@ -66,11 +66,14 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AVAu
         cell.itemPriceLabel.text = CurrencyFormatter.sharedInstance.string(from: item.nsPrice())!
         cell.itemDetailLabel.text = item.details
         cell.completeImageView.image = item.doneImage
-        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipedRight(recognizer:)))
+        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(swiped(recognizer:)))
         swipeRightGesture.direction = .right
-        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipedLeft(recognizer:)))
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(swiped(recognizer:)))
         swipeLeftGesture.direction = .left
+ 
+
         cell.gestureRecognizers = [swipeLeftGesture, swipeRightGesture]
+
         
         return cell
     }
@@ -121,32 +124,47 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, AVAu
         }
     }
     
-    @objc func swipedRight(recognizer: UISwipeGestureRecognizer){
+    @objc func swiped(recognizer: UISwipeGestureRecognizer){
         let swipe = recognizer as UISwipeGestureRecognizer
         let locationInView = swipe.location(in: tableView)
         let indexPath = tableView.indexPathForRow(at: locationInView)!
         let item = database.items[indexPath.row]
-        item.done = true
-        tableView.reloadRows(at: [indexPath], with: .fade)
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: soundURL!)
-        } catch {
-            print(error)
+        if swipe.direction == .right {
+            if !item.done {
+                item.done = true
+                
+                do {
+                    audioPlayer = try AVAudioPlayer(contentsOf: soundURL!)
+                } catch {
+                    print(error)
+                }
+                audioPlayer.play()
+                
+            }
         }
-        audioPlayer.play()
+        
+        if swipe.direction == .left {
+            if item.done {
+                item.done = false
+            }
+            
+        }
+        tableView.reloadRows(at: [indexPath], with: .fade)
         totalLabel.text = getTotalString()
+
+        
         
     }
     
-    @objc func swipedLeft(recognizer: UISwipeGestureRecognizer){
-        let swipe = recognizer as UISwipeGestureRecognizer
-        let locationInView = swipe.location(in: tableView)
-        let indexPath = tableView.indexPathForRow(at: locationInView)!
-        let item = database.items[indexPath.row]
-        item.done = false
-        tableView.reloadRows(at: [indexPath], with: .fade)
-        totalLabel.text = getTotalString()
-    }
+//    @objc func swipedLeft(recognizer: UISwipeGestureRecognizer){
+//        let swipe = recognizer as UISwipeGestureRecognizer
+//        let locationInView = swipe.location(in: tableView)
+//        let indexPath = tableView.indexPathForRow(at: locationInView)!
+//        let item = database.items[indexPath.row]
+//        item.done = false
+//        tableView.reloadRows(at: [indexPath], with: .fade)
+//        totalLabel.text = getTotalString()
+//    }
     
     func getTotalString() -> String {
         
