@@ -38,12 +38,12 @@ class ItemDB {
     
     func sortByDate(){
         let sortedItems = items.sorted(by: { $0.dateCreated.timeIntervalSince1970 > $1.dateCreated.timeIntervalSince1970})
-        self.items = sortedItems
+        self.nonRankedItems = sortedItems
     }
     
     func sortByPrice(){
         let sortedItems = items.sorted(by: {$0.price < $1.price})
-        self.items = sortedItems
+        self.nonRankedItems = sortedItems
     }
     
     func getTotal() -> NSNumber {
@@ -56,7 +56,7 @@ class ItemDB {
         }
         return NSNumber(value: price)
     }
-    
+    //Take item out of both arrays
     func removeItem(index: Int, ranked: Bool) {
         let itemToRemove : Item
         if ranked {
@@ -71,7 +71,7 @@ class ItemDB {
             items.remove(at: otherRemoveIndex!)
         }
     }
-    
+    //Update item in array to the new Item
     func updateItem(index: Int, ranked: Bool, newItem: Item) {
         let oldItem: Item
         let otherInsertIndex: Int

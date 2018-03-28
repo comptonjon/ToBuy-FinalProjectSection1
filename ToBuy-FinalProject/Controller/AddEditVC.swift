@@ -14,6 +14,8 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
     var database = ItemDB.singletonDB
     var index : Int = 0
     var imagePicker = UIImagePickerController()
+    var rankedItem = false
+    
     
 
     @IBOutlet weak var itemTitleTextField: UITextField!
@@ -26,14 +28,21 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         if editMode {
-            itemTitleTextField.placeholder = database.items[index].title
-            itemPriceTextField.placeholder = database.items[index].stringPrice()
-            itemDetailsTextField.placeholder = database.items[index].details
-            previewImageView.image = database.items[index].image
+            let item : Item
+            if rankedItem {
+                item = database.items[index]
+            } else {
+                item = database.nonRankedItems[index]
+            }
+            itemTitleTextField.placeholder = item.title
+            let price = CurrencyFormatter.sharedInstance.string(for: item.nsPrice())
+            itemPriceTextField.placeholder = price
+            itemDetailsTextField.placeholder = item.details
+            previewImageView.image = item.image
             changePreviewBtn.setTitle("Change Image", for: .normal)
             addEditBtn.setTitle("Edit Item", for: .normal)
             navigationItem.title = "Edit Item"
-            //database.items[index].done = true
+
         }
         imagePicker.delegate = self
         
@@ -49,7 +58,7 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
         itemPriceTextField.inputAccessoryView = toolBar
         
     }
-    
+    //MARK:  TextField methods
     @objc func doneClicked(){
         self.view.endEditing(true)
     }
@@ -58,7 +67,7 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
         textField.resignFirstResponder()
         return true
     }
-    
+    //MARK:  Image Picker methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             previewImageView.image = image
@@ -86,28 +95,46 @@ class AddEditVC: UIViewController, UITextFieldDelegate, UINavigationControllerDe
         
     }
     
-    
+    //Update or add new cell
     @IBAction func addEditBtnTapped(_ sender: Any) {
+        
         if editMode {
+            let originalItem : Item
+            if rankedItem {
+                originalItem = database.items[index]
+            } else {
+                originalItem = database.nonRankedItems[index]
+            }
+            let title : String
             if itemTitleTextField.text! != "" {
-                database.items[index].title = itemTitleTextField.text!
+                title = itemTitleTextField.text!
+            } else {
+                title = originalItem.title
             }
+            let price : String
             if itemPriceTextField.text! != "" {
-                database.items[index].price = Double(itemPriceTextField.text!)!
+                price = itemPriceTextField.text!
+            } else {
+                price = String(originalItem.price)
             }
+            let details : String
             if itemDetailsTextField.text! != "" {
-                database.items[index].details = itemDetailsTextField.text!
+                details = itemDetailsTextField.text!
+            } else {
+                details = originalItem.details
             }
-            database.items[index].image = previewImageView.image!
+            let item = Item(title: title, price: price, image: previewImageView.image!, details: details)
+            database.updateItem(index: index, ranked: rankedItem, newItem: item)
         } else {
-            var price : String
-            if itemPriceTextField.text! == "" {
+            let price : String
+            if itemPriceTextField.text == "" {
                 price = "0"
             } else {
                 price = itemPriceTextField.text!
             }
-            let newItem = Item(title: itemTitleTextField.text!, price: price, image: previewImageView.image!, details: itemDetailsTextField.text!)
-            database.items.append(newItem)
+            let item = Item(title: itemTitleTextField.text!, price: price, image: previewImageView.image!, details: itemDetailsTextField.text!)
+            database.items.append(item)
+            database.nonRankedItems.append(item)
         }
         
         navigationController!.popViewController(animated: true)

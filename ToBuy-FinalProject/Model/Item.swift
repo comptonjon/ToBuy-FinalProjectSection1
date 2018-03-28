@@ -35,6 +35,11 @@ class Item: Equatable {
     
     init(title: String, price: String, image: UIImage, details: String) {
         self.title = title
+        if price == "" {
+            self.price = 0
+        } else {
+            self.price = Double(price)!
+        }
         self.price = Double(price)!
         self.image = image
         self.details = details
@@ -42,18 +47,9 @@ class Item: Equatable {
 
     }
     
-    func stringPrice() -> String {
-        var stringPrice = "$\(price)"
-        if price.truncatingRemainder(dividingBy: 1.0) == 0 {
-            stringPrice += "0"
-        }
-        return stringPrice
-    }
+
     
-//    func toggleCompete(){
-//        done = !done
-//    }
-    
+    //Return NSNumber to for formatting in CurrencyFormatter
     func nsPrice() -> NSNumber {
         return NSNumber(value: price)
     }
